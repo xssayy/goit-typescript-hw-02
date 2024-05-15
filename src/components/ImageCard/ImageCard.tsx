@@ -1,6 +1,7 @@
 import style from "./ImageCard.module.css";
+import { Props } from "./ImageCard.types";
 
-const ImageCard = ({ item, openModal }) => {
+const ImageCard = ({ item, openModal }: Props) => {
   return (
     <div>
       <img

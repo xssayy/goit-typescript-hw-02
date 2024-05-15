@@ -1,10 +1,14 @@
 import style from "./SearchBar.module.css";
 import toast from "react-hot-toast";
+import { Props } from "./SearchBar.types";
+import { FormEvent } from "react";
 
-const SearchBar = ({ onSubmit }) => {
-  const handleSubmit = (e) => {
+const SearchBar = ({ onSubmit }: Props) => {
+  const handleSubmit = (e: React.FormEvent) => {
+    const form = e.target as HTMLFormElement;
     e.preventDefault();
-    const query = e.target.elements.searchbar.value.trim().toLowerCase();
+    const input = form.elements.namedItem("searchbar") as HTMLInputElement;
+    const query = input.value.trim().toLowerCase();
     if (query === "") {
       toast.error("Field cannot be empty!", {
         duration: 2000,
@@ -13,7 +17,7 @@ const SearchBar = ({ onSubmit }) => {
       return;
     }
     onSubmit(query);
-    e.target.reset();
+    form.reset();
   };
   return (
     <header className={style.header}>

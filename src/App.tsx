@@ -8,25 +8,26 @@ import ImageModal from "./components/ImageModal/ImageModal";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import { getData } from "./services/api";
 import toast, { Toaster } from "react-hot-toast";
+import { GalleryItem } from "./components/ImageCard/ImageCard.types";
 
 function App() {
-  const [gallery, setGallery] = useState([]);
-  const [query, setQuery] = useState(null);
-  const [page, setPage] = useState(null);
+  const [gallery, setGallery] = useState<GalleryItem[] | []>([]);
+  const [query, setQuery] = useState("");
+  const [page, setPage] = useState<number>(0);
   const [maxPage, setMaxPage] = useState(null);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
 
   //=====
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
-  const openModal = (image) => {
+  const openModal = (image: GalleryItem): void => {
     setSelectedImage(image);
     setIsOpen(true);
   };
 
-  const onSubmit = (newQuery) => {
+  const onSubmit = (newQuery: string) => {
     if (newQuery === query) {
       return;
     }
@@ -94,16 +95,10 @@ function App() {
 
   return (
     <>
-      <SearchBar onSubmit={onSubmit} setGallery={setGallery} />
+      <SearchBar onSubmit={onSubmit} />
       {loader && page < 2 && <Loader />}
       {gallery.length > 0 && (
-        <ImageGallery
-          items={gallery}
-          handleLoadMore={handleLoadMore}
-          page={page}
-          maxPage={maxPage}
-          openModal={openModal}
-        />
+        <ImageGallery items={gallery} openModal={openModal} />
       )}
       {loader && page > 1 && <Loader />}
       {gallery.length > 0 && page !== maxPage && (
