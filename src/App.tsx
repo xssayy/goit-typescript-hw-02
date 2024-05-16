@@ -12,11 +12,11 @@ import { GalleryItem } from "./components/ImageCard/ImageCard.types";
 
 function App() {
   const [gallery, setGallery] = useState<GalleryItem[] | []>([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(0);
-  const [maxPage, setMaxPage] = useState(null);
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState(false);
+  const [maxPage, setMaxPage] = useState<number>(0);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   //=====
   const [isOpen, setIsOpen] = useState(false);
